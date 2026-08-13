@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found — Stratus</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <!-- The site stylesheet comes FIRST so the polish pack's header (installed on
+       this page by polish-site.mjs) is styled; the block below then wins for the
+       404's own layout. Without the link the header rendered in browser defaults
+       — raw links and an unstyled monogram — on the one page a lost visitor sees. -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Every selector here is scoped. A bare "a { background: … }" rule turned
+       the polish pack's header links into navy-on-navy blocks the moment this
+       page started loading the site stylesheet — the nav was there and unreadable. */
+    body { margin: 0; min-height: 100vh; font-family: Arial, Helvetica, sans-serif; }
+    .notfound { min-height: 80vh; display: grid; place-items: center; background: #ffffff; color: #111827; text-align: center; }
+    .notfound h1 { font-size: 4rem; margin: 0 0 .5rem; color: #1f2937; }
+    .notfound__back { display: inline-block; margin-top: 1.5rem; padding: .8rem 1.6rem; background: #1f2937; color: #ffffff; text-decoration: none; border-radius: 6px; }
+  </style>
+  <noscript><style>
+  .menu-toggle { display: none !important; }
+  .primary-nav { display: flex !important; position: static !important; }
+  </style></noscript>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" data-mobile-nav-open="false">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true">S</span>
+      <span class="brand__wordmark">Stratus</span>
+    </a>
+    <button type="button" class="menu-toggle" data-mobile-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="menu-toggle__bar" aria-hidden="true"></span>
+      <span class="menu-toggle__bar" aria-hidden="true"></span>
+      <span class="menu-toggle__bar" aria-hidden="true"></span>
+    </button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+      <a href="#hero-banner">Hero Banner</a>
+      <a href="#problem-solution">Problem Solution</a>
+      <a href="#features-grid">Features Grid</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#faq-accordion">Faq Accordion</a>
+      <a href="#cta-banner">Cta Banner</a>
+    </nav>
+  </div>
+</header>
+
+  <main id="main" class="notfound">
+    <h1>404</h1>
+    <p>That page doesn't exist.</p>
+    <a class="notfound__back" href="index.html">Back to Stratus</a>
+  </main>
+  <script src="mobile-nav.js" defer></script>
+</body>
+</html>
