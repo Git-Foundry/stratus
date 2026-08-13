@@ -1,0 +1,568 @@
+/* === precise-marketplace deterministic skin stylesheet === */
+/* Owned by code (lib/skin-templates.mjs). The model does not write this file. */
+
+:root {
+  --color-primary: #1f2937;
+  --color-secondary: #4b5563;
+  --color-accent: #2563eb;
+  --color-bg: #ffffff;
+  --color-text: #111827;
+  --font-display: "Clash Display", Georgia, "Times New Roman", serif;
+  --font-body: "Switzer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius: 4px;
+  --shadow: 0 1px 0 rgba(17,24,39,0.06);
+  --max-width: 80rem;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  /* No overflow guard here on purpose. overflow-x:hidden on body clips every
+     absolutely-positioned descendant, which the detector reports as
+     clipped-overflow-container, and it hides real layout bugs rather than
+     fixing them. The browser-quality gate now measures document overflow at
+     five widths from phone to widescreen and fails the build if any child
+     actually pushes the viewport wider. That is evidence; the guard was only
+     a blindfold. See verify-browser-quality.mjs for the width list.
+     2026-08-12 — kept when the type scale was reverted to main at Azhar's
+     call; this one is a gate decision, not a visual one. */
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+a:hover, a:focus { color: var(--color-accent); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; color: var(--color-primary); margin: 0 0 var(--space-2); }
+h1 { font-size: clamp(2rem, 4.5vw, 3.75rem); letter-spacing: -0.01em; font-weight: 800; }
+h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); letter-spacing: -0.005em; }
+h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+p { margin: 0 0 var(--space-2); }
+ul, ol { padding-left: 1.25rem; }
+li { margin-bottom: 0.25rem; }
+hr { border: 0; border-top: 1px solid var(--color-primary); opacity: 0.1; margin: var(--space-4) 0; }
+
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-3); }
+
+.btn {
+  display: inline-block;
+  min-height: 2.75rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+.btn--primary { background: var(--color-primary); color: var(--color-bg); }
+.btn--primary:hover, .btn--primary:focus { background: var(--color-accent); color: var(--color-bg); }
+.btn--ghost { background: transparent; color: var(--color-primary); border-color: var(--color-primary); }
+.btn--ghost:hover, .btn--ghost:focus { background: var(--color-primary); color: var(--color-bg); }
+
+.form-field { margin-bottom: var(--space-2); }
+.form-label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem; color: var(--color-primary); }
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius);
+}
+.form-textarea { min-height: 6rem; resize: vertical; }
+
+/* ── Hero sections ──────────────────────────────────────────────────── */
+.hero-centered { padding: var(--space-6) 0 var(--space-5); overflow: hidden; }
+.hero-centered__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  text-align: left;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .hero-centered__inner { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--space-5); }
+}
+.hero-centered__copy { min-width: 0; }
+.hero-centered__kicker {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-secondary);
+  margin: 0 0 var(--space-2);
+}
+.hero-centered__headline { margin: 0 0 var(--space-2); line-height: 1.08; max-width: 24ch; }
+.hero-centered__sub {
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  color: var(--color-secondary);
+  max-width: 36rem;
+  margin: 0 0 var(--space-3);
+}
+.hero-centered__ctas { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+/* 2026-08-09 — Nimbus editorial exemplar. The approved preview pairs the
+   primary button with a secondary text link (not a ghost button) so the
+   hero reads as one deliberate call-to-action + a quieter escape route.
+   The arrow is a literal Unicode right-arrow emitted by the renderer,
+   not a font glyph or remote SVG. The link picks up the skin's text
+   colour (no fill, no border) so it cannot be confused with a button. */
+.hero-centered__text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hero-centered__text-link:hover, .hero-centered__text-link:focus { color: var(--color-accent); }
+
+/* ── Hero note (editorial dark card, sits in the right column) ─────── */
+.hero-note {
+  max-width: 24rem;
+  min-width: 0;
+  padding: var(--space-3);
+  background: var(--color-primary);
+  color: var(--color-bg);
+  box-shadow: 0.6rem 0.6rem 0 var(--color-accent);
+}
+.hero-note__label, .hero-note__signoff {
+  color: var(--color-bg);
+  opacity: 0.6;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.hero-note__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1.1;
+  margin: var(--space-2) 0 var(--space-2);
+  max-width: 14ch;
+  color: var(--color-bg);
+}
+.hero-note__rule {
+  width: 3rem;
+  border-top: 1px solid var(--color-accent);
+  margin: 0 0 var(--space-2);
+}
+.hero-note__body {
+  color: var(--color-bg);
+  opacity: 0.78;
+  margin: 0;
+  max-width: 24ch;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.hero-note__signoff { margin-top: var(--space-3); }
+
+.hero-split { padding: var(--space-5) 0; }
+.hero-split__inner { display: grid; grid-template-columns: 1fr; gap: var(--space-4); align-items: center; }
+@media (min-width: 900px) {
+  .hero-split__inner { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--space-5); }
+}
+.hero-split__text { max-width: 36rem; }
+.hero-split__kicker {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-secondary);
+  margin: 0 0 var(--space-2);
+}
+.hero-split__headline { margin: 0 0 var(--space-2); line-height: 1.1; max-width: 22ch; }
+.hero-split__sub { font-size: clamp(1.1rem, 1.6vw, 1.4rem); color: var(--color-secondary); margin: 0 0 var(--space-3); }
+.hero-split__ctas { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.hero-split__image img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+
+.hero-banner {
+  padding: var(--space-6) 0;
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+.hero-banner__inner { max-width: 48rem; }
+.hero-banner__kicker {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-bg);
+  opacity: 0.7;
+  margin: 0 0 var(--space-2);
+}
+.hero-banner__headline { color: var(--color-bg); margin: 0 0 var(--space-2); }
+.hero-banner__sub { font-size: clamp(1.1rem, 1.6vw, 1.4rem); color: var(--color-bg); opacity: 0.85; margin: 0 0 var(--space-3); }
+.hero-banner .btn--primary { background: var(--color-bg); color: var(--color-primary); }
+.hero-banner .btn--primary:hover, .hero-banner .btn--primary:focus { background: var(--color-accent); color: var(--color-bg); }
+
+/* ── Features list (editorial: numbered, single column) ─────────────── */
+.features-list { padding: var(--space-5) 0; border-top: 1px solid var(--color-primary); border-top-color: rgba(0,0,0,0.06); }
+.features-list__title { margin: 0 0 var(--space-3); }
+.features-list__items { list-style: none; padding: 0; margin: 0; }
+.features-list__item {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  align-items: start;
+}
+.features-list__item:first-child { border-top: 0; padding-top: 0; }
+.features-list__item:last-child { border-bottom: 1px solid rgba(0,0,0,0.08); }
+.features-list__num { font-family: var(--font-display); font-size: 1.25rem; color: var(--color-secondary); letter-spacing: 0.04em; }
+.features-list__body { min-width: 0; }
+.features-list__name { margin: 0 0 0.25rem; }
+.features-list__desc { margin: 0 0 0.5rem; color: var(--color-secondary); }
+.features-list__bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
+.features-list__bullets li { font-size: 0.9rem; color: var(--color-primary); margin: 0; }
+.features-list__bullets li::before { content: "— "; color: var(--color-secondary); }
+
+/* ── Features grid (calm: cards with subtle radius and shadow) ──────── */
+.features-grid { padding: var(--space-5) 0; }
+.features-grid__title { margin: 0 0 var(--space-3); }
+.features-grid__cards { display: grid; grid-template-columns: 1fr; gap: var(--space-2); }
+@media (min-width: 600px) { .features-grid__cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .features-grid__cards { grid-template-columns: repeat(2, 1fr); } }
+.feature-card {
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.feature-card__title { margin: 0 0 0.5rem; font-size: 1.2rem; }
+.feature-card__desc { margin: 0 0 var(--space-2); color: var(--color-secondary); }
+.feature-card__bullets { list-style: none; padding: 0; margin: 0; }
+.feature-card__bullets li { font-size: 0.9rem; padding-left: 1rem; position: relative; margin-bottom: 0.25rem; color: var(--color-primary); }
+.feature-card__bullets li::before { content: "→"; position: absolute; left: 0; color: var(--color-accent); }
+
+/* ── Problem / solution (two-column) ───────────────────────────────── */
+.problem-solution { padding: var(--space-5) 0; }
+.problem-solution__inner { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+@media (min-width: 900px) { .problem-solution__inner { grid-template-columns: 1fr 1fr; gap: var(--space-5); } }
+@media (min-width: 900px) { .problem-solution__answer { border-left: 1px solid rgba(0,0,0,0.1); padding-left: var(--space-5); } }
+.problem-solution__problem, .problem-solution__answer { min-width: 0; }
+.problem-solution__label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-secondary);
+  margin: 0 0 var(--space-1);
+}
+.problem-solution__headline { margin: 0 0 var(--space-2); }
+.problem-solution__product { margin: 0 0 var(--space-2); }
+.problem-solution__body { color: var(--color-secondary); margin: 0; }
+
+/* ── Founder story (asymmetric two-column, image-left) ──────────────── */
+.founder-story { padding: var(--space-5) 0; border-top: 1px solid rgba(0,0,0,0.06); }
+.founder-story__inner { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
+/* 2026-08-09 — Nimbus editorial exemplar. The approved preview is
+   image-LEFT, text-RIGHT. The image column is slightly narrower
+   (0.9fr) than the text column (1.1fr), and the image comes FIRST in
+   the markup so this grid places it on the left of the page. The
+   text block always comes second. */
+@media (min-width: 900px) { .founder-story__inner { grid-template-columns: 0.9fr 1.1fr; gap: var(--space-5); align-items: center; } }
+.founder-story__text { min-width: 0; }
+/* 2026-08-09 — Nimbus editorial exemplar. The eyebrow is the small
+   uppercase label above the founder heading (e.g. "Why Nimbus
+   exists"). The token-driven colour keeps it consistent with the
+   rest of the skin's eyebrows. */
+.founder-story__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-2);
+}
+.founder-story__title { margin: 0 0 var(--space-2); }
+.founder-story__body { color: var(--color-secondary); margin: 0 0 var(--space-2); }
+.founder-story__subhead { font-family: var(--font-display); font-size: 1.1rem; margin: var(--space-2) 0 0.5rem; }
+.founder-story__steps { list-style: decimal; padding-left: 1.25rem; margin: 0 0 var(--space-2); }
+.founder-story__steps li { margin: 0 0 0.5rem; color: var(--color-secondary); }
+.founder-story__steps li strong { color: var(--color-primary); font-weight: 600; }
+.founder-story__signals { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; }
+.founder-story__signals li { font-family: var(--font-body); font-size: 0.95rem; color: var(--color-primary); margin: 0; padding-left: 1.25rem; position: relative; }
+.founder-story__signals li::before { content: "✓"; position: absolute; left: 0; color: var(--color-accent); font-weight: 700; }
+.founder-story__image img { width: 100%; max-width: 32rem; aspect-ratio: 3 / 4; object-fit: cover; border: 1px solid rgba(0,0,0,0.08); }
+/* When the founder-story has no image (image slot missing or below the
+   usable-image byte threshold), the section collapses to a single column
+   so the text does not sit next to an empty half of the viewport. */
+.founder-story--no-image .founder-story__inner { grid-template-columns: 1fr; max-width: 44rem; margin: 0 auto; }
+
+/* ── Process steps (editorial: dark field, hairline rules) ─────────── */
+.process-steps { padding: var(--space-5) 0; background: var(--color-primary); color: var(--color-bg); }
+/* 2026-08-09 — Nimbus editorial exemplar. The approved preview places
+   an eyebrow + heading above the three-step grid with a hairline
+   divider beneath the heading. The eyebrow uses the skin accent
+   token (the same one the hairline accent rule uses on the hero
+   note card) so the dark field reads as one composed band, not
+   three separate pieces. */
+.process-steps__intro { padding-bottom: var(--space-3); border-bottom: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: var(--space-3); }
+.process-steps__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 var(--space-2);
+}
+.process-steps__title { margin: 0 0 var(--space-3); color: var(--color-bg); }
+.process-steps__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 0; }
+@media (min-width: 600px) { .process-steps__list { grid-template-columns: repeat(3, 1fr); gap: 0; } }
+.process-step {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  align-items: start;
+}
+.process-step:last-child { border-right: 0; }
+.process-step + .process-step { padding-left: var(--space-3); }
+.process-step__body { min-width: 0; }
+.process-step__num {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  display: block;
+  letter-spacing: 0.12em;
+}
+.process-step__heading { margin: 0 0 0.5rem; font-size: 1.25rem; letter-spacing: -0.015em; color: var(--color-bg); }
+.process-step__desc { margin: 0; color: var(--color-bg); opacity: 0.68; font-size: 0.95rem; }
+
+/* ── How it works (marketplace: tighter, 3 steps) ──────────────────── */
+.how-it-works { padding: var(--space-5) 0; }
+.how-it-works__title { margin: 0 0 var(--space-3); }
+.how-it-works__steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
+@media (min-width: 700px) { .how-it-works__steps { grid-template-columns: repeat(3, 1fr); } }
+.how-step { padding: var(--space-2) 0; border-top: 1px solid var(--color-primary); }
+.how-step__num { font-family: var(--font-display); font-size: 2.5rem; color: var(--color-primary); display: block; }
+.how-step__heading { margin: 0.5rem 0; }
+.how-step__desc { color: var(--color-secondary); margin: 0; }
+
+/* ── FAQ accordion ─────────────────────────────────────────────────── */
+.faq-accordion { padding: var(--space-5) 0; }
+.faq-accordion__title { margin: 0 0 var(--space-3); }
+.faq-accordion__list { display: flex; flex-direction: column; gap: 0; }
+.faq-item { border-top: 1px solid rgba(0,0,0,0.1); padding: var(--space-3) 0; }
+.faq-item:last-child { border-bottom: 1px solid rgba(0,0,0,0.1); }
+.faq-item__question {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.05rem;
+  cursor: pointer;
+  padding: 0.25rem 2rem 0.25rem 0;
+  color: var(--color-primary);
+  list-style: none;
+  position: relative;
+  display: block;
+}
+.faq-item__question::-webkit-details-marker { display: none; }
+.faq-item__question::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0.25rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-secondary);
+  transition: transform 0.15s ease;
+}
+details[open] > .faq-item__question::after { content: "−"; }
+.faq-item__answer { padding-top: 0.75rem; color: var(--color-secondary); }
+
+/* ── CTA banner (the deliberate dark or coloured field) ───────────── */
+.cta-banner {
+  padding: var(--space-5) 0;
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+.cta-banner__inner { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+@media (min-width: 700px) { .cta-banner__inner { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-4); } }
+.cta-banner__hook { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); color: var(--color-bg); margin: 0; max-width: 32rem; }
+.cta-banner .btn--primary { background: var(--color-bg); color: var(--color-primary); }
+.cta-banner .btn--primary:hover, .cta-banner .btn--primary:focus { background: var(--color-accent); color: var(--color-bg); }
+
+/* ── Waitlist capture (editorial: dark field, real form) ───────────── */
+/* 2026-08-09 — Nimbus editorial exemplar. The approved preview's
+   conversion moment is a dark waitlist band with a real form
+   (action=https://gitfoundry.co.uk/api/site-enquiry), not a
+   button-only cta-banner. The band is composed as a two-column
+   grid on desktop (intro left, form right) and stacks to a single
+   column on mobile. The dark field uses the skin's primary token
+   (the same field the process-steps band uses) so the page reads
+   as one composed rhythm: paper → dark field → paper → dark field
+   → paper, with the footer as the closing paper rule. */
+.waitlist-capture { padding: var(--space-5) 0; background: var(--color-primary); color: var(--color-bg); }
+.waitlist-capture__inner { display: grid; grid-template-columns: 1fr; gap: var(--space-4); align-items: end; }
+@media (min-width: 700px) { .waitlist-capture__inner { grid-template-columns: 0.9fr 1.1fr; gap: var(--space-5); } }
+.waitlist-capture__intro { min-width: 0; }
+.waitlist-capture__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 var(--space-2);
+}
+.waitlist-capture__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  color: var(--color-bg);
+  margin: 0;
+  max-width: 12ch;
+}
+.waitlist-capture__form { display: flex; flex-direction: column; gap: 0.65rem; }
+.waitlist-capture__label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.68);
+  margin: 0;
+}
+.waitlist-capture__row { display: flex; gap: 0.75rem; }
+.waitlist-capture__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: var(--color-bg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border-radius: 0;
+}
+.waitlist-capture__input::placeholder { color: rgba(255, 255, 255, 0.5); }
+.waitlist-capture__input:focus { outline: 2px solid var(--color-bg); outline-offset: 2px; }
+.waitlist-capture__btn { background: var(--color-bg); color: var(--color-primary); border: 1px solid var(--color-bg); }
+.waitlist-capture__btn:hover, .waitlist-capture__btn:focus { background: var(--color-accent); color: var(--color-bg); border-color: var(--color-accent); }
+@media (max-width: 520px) {
+  .waitlist-capture__row { flex-direction: column; }
+  .waitlist-capture__btn { width: 100%; }
+}
+
+/* ── Contact block (form + info) ───────────────────────────────────── */
+.contact-block { padding: var(--space-5) 0; }
+.contact-block__inner { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+@media (min-width: 900px) { .contact-block__inner { grid-template-columns: 1fr 1.4fr; gap: var(--space-5); } }
+.contact-block__info { min-width: 0; }
+.contact-block__title { margin: 0 0 var(--space-2); }
+.contact-block__about { color: var(--color-secondary); margin: 0 0 var(--space-2); }
+.contact-block__promise { color: var(--color-secondary); margin: 0 0 var(--space-2); font-size: 0.95rem; }
+.contact-block__email { margin: 0 0 0.5rem; }
+.contact-block__hours { color: var(--color-secondary); margin: 0 0 0.5rem; }
+.contact-block__signals { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; }
+.contact-block__signals li { font-size: 0.9rem; color: var(--color-primary); margin: 0; padding-left: 1.25rem; position: relative; }
+.contact-block__signals li::before { content: "✓"; position: absolute; left: 0; color: var(--color-accent); font-weight: 700; }
+.contact-block__form { display: flex; flex-direction: column; gap: var(--space-2); }
+
+/* ── Footer (canonical) ───────────────────────────────────────────── */
+.site-footer { padding: var(--space-4) 0; border-top: 1px solid rgba(0,0,0,0.08); background: var(--color-bg); color: var(--color-secondary); }
+.site-footer__inner { display: flex; flex-direction: column; gap: 0.5rem; }
+@media (min-width: 700px) { .site-footer__inner { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-3); } }
+.site-footer__brand { font-family: var(--font-display); font-weight: 600; color: var(--color-primary); margin: 0; }
+.site-footer__tagline { margin: 0; }
+.site-footer__built { margin: 0; font-size: 0.9rem; }
+.site-footer__built a { color: var(--color-secondary); text-decoration: underline; }
+
+/* ── Mobile collapse (skin-specific breakpoint) ─────────────────── */
+@media (max-width: 900px) {
+  .hero-centered, .hero-split, .hero-banner { padding: var(--space-4) 0; }
+  .container { padding: 0 var(--space-2); }
+  h1 { font-size: clamp(2rem, 8vw, 2.75rem); }
+  /* Editorial hero: two columns collapse to a single column on mobile so
+     the note card sits below the copy rather than next to it. */
+  .hero-centered__inner { grid-template-columns: 1fr; gap: var(--space-3); }
+  .hero-note { max-width: 26rem; }
+  /* Process steps: the desktop hairline rules (border-right on every step
+     except the last) collapse into horizontal dividers on mobile. */
+  .process-steps__list { grid-template-columns: 1fr; }
+  .process-step, .process-step + .process-step { padding: var(--space-3) 0; border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.18); }
+  .process-step:last-child { border-bottom: 0; padding-bottom: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* structural patches */
+@media (min-width: 700px) { .features-grid__cards:has(.feature-card:nth-child(4)):not(:has(.feature-card:nth-child(5))){ grid-template-columns:repeat(2,1fr); } }
+.hero-centered > p, .hero-centered__inner > p, .site-footer p, .section-heading > p { margin-inline:auto; }
+section { padding-block: clamp(3rem, 6vw, 6rem); }
+main, section, [class*="__inner"] { min-width: 0; max-width: 100%; }
+h1, h2, h3, h4, h5, h6, p { overflow-wrap: anywhere; }
+
+/* header-owned-by-polish-pack */
+/* Polish pack owns this block. The validator checks the marker is present and
+   the rule counts are unchanged. If you change it, run npm test. */
+/* Skip link: off-screen until focused. ucas-0001 shipped a class-less one with
+   no rule anywhere, so "Skip to content" sat on top of the header on every
+   page. Owned here for the same reason the header is. */
+.skip-link { position: absolute; left: -9999px; top: 0; z-index: 100; padding: 12px 20px; background: #1f2937; color: #ffffff; text-decoration: none; }
+.skip-link:focus { left: 0; }
+.site-header { background: #ffffff; border-bottom: 1px solid #1f293722; font-family: Switzer; position: relative; }
+.site-header__inner { max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; gap: 24px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: #111827; }
+.brand__mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: #1f2937; color: #ffffff; font-family: Clash Display; font-weight: 700; font-size: 16px; letter-spacing: 0.02em; }
+.brand__wordmark { font-family: Clash Display; font-weight: 600; font-size: 18px; }
+.primary-nav { display: flex; gap: 24px; margin-left: auto; align-items: center; }
+.primary-nav a { color: #111827; text-decoration: none; font-size: 15px; }
+.primary-nav a:hover, .primary-nav a:focus { color: #2563eb; }
+.menu-toggle { display: none; background: transparent; border: 0; padding: 8px; cursor: pointer; }
+.menu-toggle__bar { display: block; width: 22px; height: 2px; background: #111827; margin: 4px 0; }
+/* launch-minimal: brand + one link, and deliberately no burger to reveal it.
+   The mobile rules below turn .primary-nav into a toggle-revealed panel, which
+   on this mode would hide the only way to reach the waitlist at phone width —
+   the exact failure lib/browser-quality.mjs raises as
+   'launch-minimal-waitlist-invisible'. Higher specificity than the .primary-nav
+   rules below, so it holds at every width regardless of source order. This is a
+   reachability rule, not a styling choice; the mode's appearance is otherwise
+   whatever the shared header rules above give it. */
+.site-header--minimal .primary-nav { position: static; display: flex; padding: 0; border-bottom: 0; box-shadow: none; margin-left: auto; }
+.site-header--minimal .menu-toggle { display: none; }
+@media (max-width: 768px) {
+  .menu-toggle { display: inline-block; }
+  /* Mobile panel: a 1px palette-tinted border-bottom gives the menu a clear end
+     on long link lists, and a palette-aware (primary-with-alpha) shadow keeps
+     the popover inside the brand's own visual world instead of looking like a
+     foreign element stacked on top of the page. The shadow replaces the
+     hardcoded black rgba(0,0,0,0.06) the prior rule shipped, which read as a
+     default browser popover on a designed page. */
+  .primary-nav { position: absolute; top: 100%; left: 0; right: 0; background: #ffffff; flex-direction: column; align-items: stretch; padding: 16px 24px; gap: 12px; display: none; border-bottom: 1px solid #1f293722; box-shadow: 0 8px 24px #1f293740; }
+  html[data-js="true"] .site-header[data-mobile-nav-open="false"] .primary-nav { display: none; }
+  html[data-js="true"] .site-header[data-mobile-nav-open="true"] .primary-nav { display: flex; }
+}
+html[data-reduced-motion="true"] .site-header, html[data-reduced-motion="true"] .primary-nav { transition: none !important; }
+/* end header-owned-by-polish-pack */
+
